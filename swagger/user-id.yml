@@ -1,0 +1,7 @@
+x-template:
+  userId: &userId
+    type: string
+    minimum: 4
+    maximum: 4
+    pattern: '[0-9]{4}'
+    description: the unique identifier of our acme user

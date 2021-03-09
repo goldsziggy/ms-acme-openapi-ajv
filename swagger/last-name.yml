@@ -1,0 +1,6 @@
+x-template:
+  lastName: &lastName
+    type: string
+    minimum: 1
+    maximum: 30
+    description: the last name of our acme user

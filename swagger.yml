@@ -1,0 +1,113 @@
+openapi: 3.0.0
+info:
+  title: ms-acme-openapi-ajv
+  version: 1.0.0
+paths:
+  /v1/acme:
+    get:
+      description: a simple get route that returns the `foo` query param
+      parameters:
+        - in: query
+          name: foo
+          schema:
+            type: string
+            minimum: 3
+      responses:
+        "200":
+          description: a object witth the echoed query param.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  foo:
+                    type: string
+                    minimum: 3
+  "/v1/acme/user/{userId}":
+    get:
+      description: gets a previously created fake-user
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            <<:
+              type: string
+              minimum: 4
+              maximum: 4
+              pattern: "[0-9]{4}"
+              description: the unique identifier of our acme user
+      responses:
+        "200":
+          description: a object with the users firstName, lastName and userId.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    minimum: 1
+                    maximum: 30
+                    description: the first name of our acme user
+                  lastName:
+                    type: string
+                    minimum: 1
+                    maximum: 30
+                    description: the last name of our acme user
+                  userId:
+                    type: string
+                    minimum: 4
+                    maximum: 4
+                    pattern: "[0-9]{4}"
+                    description: the unique identifier of our acme user
+        "404":
+          description: a blank 404 response to indicate no user found.
+  /v1/acme/user:
+    put:
+      description: creates a fake user of the acme service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - firstName
+                - lastName
+              properties:
+                firstName:
+                  type: string
+                  minimum: 1
+                  maximum: 30
+                  description: the first name of our acme user
+                lastName:
+                  type: string
+                  minimum: 1
+                  maximum: 30
+                  description: the last name of our acme user
+      responses:
+        "200":
+          description: a object with the echoed firstName, lastName and a random userId.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  firstName:
+                    type: string
+                    minimum: 1
+                    maximum: 30
+                    description: the first name of our acme user
+                  lastName:
+                    type: string
+                    minimum: 1
+                    maximum: 30
+                    description: the last name of our acme user
+                  userId:
+                    type: string
+                    minimum: 4
+                    maximum: 4
+                    pattern: "[0-9]{4}"
+                    description: the unique identifier of our acme user
+components: {}
+tags: []
